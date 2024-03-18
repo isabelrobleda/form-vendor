@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import { useForm, ValidationError } from '@formspree/react';
+
 
 function FormVendor() {
+  const [state, handleSubmit] = useForm("xleqwbbq");
+  const [images, setImages] = useState([]);
+
+  const handleImageChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    setImages(selectedFiles);
+  };
+
+  if (state.succeeded) {
+    return <p>Muchas gracias</p>;
+}
+
+
+ 
+
   return (
     <>
-      <form className="m-12">
+      <form className="m-12" onSubmit={handleSubmit} action="https://formspree.io/f/xleqwbbq" method="POST" encType="multipart/form-data">
         <div className="space-y-12">
           <div className="border-b border-gray-900/10 pb-12">
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -17,7 +34,7 @@ function FormVendor() {
                 <div className="mt-2">
                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                     <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-                      upcyclemex.com/
+                      casadetodos.com/
                     </span>
                     <input
                       type="text"
@@ -25,7 +42,7 @@ function FormVendor() {
                       id="username"
                       autoComplete="username"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                      placeholder="janesmith"
+                      placeholder="juanaperez"
                     />
                   </div>
                 </div>
@@ -115,16 +132,16 @@ function FormVendor() {
 
               <div className="col-span-full">
                 <label
-                  htmlFor="brand"
+                  htmlFor="usage"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Uso
                 </label>
                 <div className="mt-2">
                   <select
-                    id="brand"
-                    name="brand"
-                    autoComplete="brand"
+                    id="usage"
+                    name="usage"
+                    autoComplete="usage"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
                     <option>Nuevo, no lo he usado</option>
@@ -158,8 +175,8 @@ function FormVendor() {
                   <p className="mt-1 text-sm leading-6 text-gray-600">Ancho</p>
                   <input
                     type="text"
-                    id="height"
-                    name="height"
+                    id="long"
+                    name="long"
                     placeholder="100cm"
                     className="block w-1/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -169,8 +186,8 @@ function FormVendor() {
                   </p>
                   <input
                     type="text"
-                    id="height"
-                    name="height"
+                    id="width"
+                    name="width"
                     placeholder="80cm"
                     className="block w-1/4 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -207,25 +224,23 @@ function FormVendor() {
                 >
                   Fotos
                 </label>
-                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                  <div className="text-center">
-                    <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                <div className="mt-2 flex rounded-lg border border-dashed border-gray-900/25 px-6 py-5">
+                  <div className="">
+                    <div className=" flex text-sm leading-6 text-gray-600">
                       <label
                         htmlFor="file-upload"
-                        className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                       >
-                        <span>Sube tus fotos</span>
-                        <input
-                          id="file-upload"
-                          name="file-upload"
-                          type="file"
-                          className="sr-only"
-                        />
+                        <h3 className="block text-sm font-medium leading-6 text-gray-900">Sube tus fotos</h3>
+                        <input type="file" accept="image/*" multiple onChange={handleImageChange} id="images" name="images"/>
+                        <br />
+                      
                       </label>
-                      <p className="pl-1">o tráelas desde tu compu</p>
                     </div>
                     <p className="text-xs leading-5 text-gray-600">
-                      PNG, JPG, GIF hasta 10MB
+                      PNG y JPG hasta 10MB. 
+                    </p>
+                    <p className="text-xs leading-5 text-gray-600">
+                      Selecciona todas las fotos a la vez y da click en "abrir"
                     </p>
                   </div>
                 </div>
@@ -356,8 +371,8 @@ function FormVendor() {
                   </div>
                   <div className="flex items-center gap-x-3">
                     <input
-                      id="special-pickup"
-                      name="special-pickup"
+                      id="special-pickup-no"
+                      name="special-pickup-no"
                       type="radio"
                       className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                     />
@@ -405,7 +420,7 @@ function FormVendor() {
               </div>
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="postal-code"
+                  htmlFor="bank-details"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Cuenta de Banco (CLABE)
@@ -413,9 +428,8 @@ function FormVendor() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="postal-code"
-                    id="postal-code"
-                    autoComplete="postal-code"
+                    name="bank-details"
+                    id="bank-details"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
@@ -423,7 +437,7 @@ function FormVendor() {
 
             <div className="sm:col-span-2">
                 <label
-                  htmlFor="postal-code"
+                  htmlFor="signature"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Firma para aceptar Comisiones
@@ -431,8 +445,8 @@ function FormVendor() {
                 <div className="mt-2">
                   <input
                     type="text"
-                    name="postal-code"
-                    id="postal-code"
+                    name="signature"
+                    id="signature"
                     autoComplete="postal-code"
                     placeholder="Firma/Nombre"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -449,12 +463,6 @@ function FormVendor() {
             className="text-sm font-semibold leading-6 text-gray-900"
           >
             Cancelar
-          </button>
-          <button
-            type="submit"
-            className="rounded-md bg-indigo-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Guardar
           </button>
 
           <button
